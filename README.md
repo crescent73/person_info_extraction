@@ -6,4 +6,5 @@
 + kg：知识图谱相关操作代码
 + result：处理结果
 + utils：封装类
++ test：测试文件
 + main.py 入口函数
