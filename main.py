@@ -1,7 +1,9 @@
 import os
 import csv
-from extraction.infoExtract import InfoExtract
+from extraction.info_extract import InfoExtract
 from entity.person import Person
+from py2neo import Graph, Node, Relationship, NodeMatcher
+from kg.person_dao import addPerson
 
 def infoExtra(inf,path,file,encode):
     with open(path + "/" + file,'r',encoding=encode) as f:
@@ -36,6 +38,8 @@ if __name__ == "__main__":
             persons.extend(infoExtra(inf,path,file,'utf-8'))
         except:
             persons.extend(infoExtra(inf,path,file,'gbk'))
+    graph = Graph("http://10.109.246.245:7474",auth=("neo4j","123456"))
+    graph.delete_all() # 先清除所有数据
 
     # 2 人物格式化学习、工作信息[period,company,position]三元组提取
     for i in range(len(persons)):
@@ -43,3 +47,7 @@ if __name__ == "__main__":
         persons[i].job = inf.getJobTriples(persons[i].employment)
         persons[i].saveInfo("result/result2.txt")
         persons[i].saveAddInfo("result/result2.txt")
+        addPerson(graph,persons[i]) # 添加人物信息到知识图谱中
+        # 访问地址 http://10.109.246.245:7474/browser/
+        
+    

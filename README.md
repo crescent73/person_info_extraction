@@ -1,5 +1,6 @@
 # 程序说明
 ### 项目结构
++ config：配置文件
 + data：待处理数据
 + entity：封装的抽取的实体
 + extraction：任务信息抽取代码

@@ -1,6 +1,6 @@
 from py2neo import Graph, Node, Relationship, NodeMatcher
 import math
-from kgBase import *
+from kg_base import *
 
 class KG:
     """ neo4j封装类 """
